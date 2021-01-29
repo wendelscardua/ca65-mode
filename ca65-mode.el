@@ -140,7 +140,7 @@
     (modify-syntax-entry ?\" "\"" st)
     (modify-syntax-entry ?\' "'" st)
     st)
-  "Syntax table for ca65-mode.")
+  "Syntax table for `ca65-mode'.")
 
 (defun ca65-mode ()
   "Major mode for editing ca65 assembly files."
