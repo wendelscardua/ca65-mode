@@ -4,7 +4,7 @@
 
 ;; Author: Wendel Scardua <wendel@scardua.net>
 ;; Keywords: languages, assembly, ca65, 6502
-;; Version: 0.1
+;; Version: 0.1.1
 ;; Homepage: https://github.com/wendelscardua/ca65-mode
 ;; Package-Requires: ((emacs "26.1"))
 
@@ -149,8 +149,8 @@
   (set-syntax-table ca65-mode-syntax-table)
   (use-local-map ca65-mode-map)
   (set (make-local-variable 'font-lock-defaults) '(ca65-font-lock-keywords))
-  (set (make-local-variable 'indent-line-function) 'ca65-indent-line)
-  (setq major-mode 'ca65-mode)
+  (set (make-local-variable 'indent-line-function) #'ca65-indent-line)
+  (setq major-mode #'ca65-mode)
   (setq mode-name "ca65")
   (set-variable 'tab-width 2)
   (run-hooks 'ca65-mode-hook))
