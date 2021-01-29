@@ -1,4 +1,4 @@
-;;; ca65-mode.el --- Major mode for editing ca65 assembly files
+;;; ca65-mode.el --- Major mode for ca65 assembly files      -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2021 Wendel Scardua
 
