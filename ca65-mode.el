@@ -142,6 +142,7 @@
     st)
   "Syntax table for `ca65-mode'.")
 
+;;;###autoload
 (defun ca65-mode ()
   "Major mode for editing ca65 assembly files."
   (interactive)
