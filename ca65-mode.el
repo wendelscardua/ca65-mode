@@ -79,7 +79,7 @@
 ;; 2. at .end*, decrease indent
 ;; 3. if before we have an .end*, use that line's indent
 ;; 4. if before we have a .proc, .if*, .scope, .enum, .struct, increase indent
-;; 5. labels ignore indent
+;; 5. labels use zero indent
 ;; 6. ignore indent otherwise
 ;; 7. exception: empty label ':' is treated like space for indent purposes
 (defun ca65-indent-line ()
