@@ -94,10 +94,14 @@
         (if (looking-at "^[ \t]*[.]end") ;; rule 2
             (progn
               (save-excursion
-                (forward-line -1)
-                (setq cur-indent (- (current-indentation) tab-width)))
-              (if (< cur-indent 0)
-                  (setq cur-indent 0)))
+                (while not-indented
+                  (forward-line -1)
+                  (if (or (bobp)
+                          (not (looking-at "^[ \t]*@?\\w*:")))
+                      (setq not-indented nil)))
+                (setq cur-indent (- (current-indentation) tab-width))
+                (if (< cur-indent 0)
+                    (setq cur-indent 0))))
           (save-excursion
             (while not-indented
               (forward-line -1)
