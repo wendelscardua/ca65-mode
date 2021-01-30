@@ -4,7 +4,7 @@
 
 ;; Author: Wendel Scardua <wendel@scardua.net>
 ;; Keywords: languages, assembly, ca65, 6502
-;; Version: 0.1.1
+;; Version: 0.2.0
 ;; Homepage: https://github.com/wendelscardua/ca65-mode
 ;; Package-Requires: ((emacs "26.1"))
 
@@ -80,8 +80,9 @@
 ;; 3. if before we have an .end*, use that line's indent
 ;; 4. if before we have a .proc, .if*, .scope, .enum, .struct, increase indent
 ;; 5. labels use zero indent
-;; 6. ignore indent otherwise
-;; 7. exception: empty label ':' is treated like space for indent purposes
+;; 6. if using line continuation (\), indent the next line on last space except the one next to \
+;; 7. ignore indent otherwise
+;; 8. exception: empty label ':' is treated like space for indent purposes
 (defun ca65-indent-line ()
   "Indent current line as ca65 code."
   (interactive)
@@ -102,22 +103,30 @@
                 (setq cur-indent (- (current-indentation) tab-width))
                 (if (< cur-indent 0)
                     (setq cur-indent 0))))
-          (save-excursion
-            (while not-indented
+          (progn
+            (save-excursion
               (forward-line -1)
-              (if (looking-at "^[ \t]*[.]end") ;; rule 3
+              (if (looking-at ".*\\\\ *\n") ;; rule 7
                   (progn
-                    (setq cur-indent (current-indentation))
-                    (setq not-indented nil))
-                ;; rule 4
-                (if (looking-at "^[ \t]*[.]\\(enum\\>\\|if\\|mac\\>\\|macro\\>\\|proc\\>\\|repeat\\>\\|scope\\>\\|struct\\>\\)")
+                    (string-match " [^ ]* ?\\\\" (thing-at-point 'line t))
+                    (setq cur-indent (+ 1 (match-beginning 0)))
+                    (setq not-indented nil))))
+            (save-excursion
+              (while not-indented
+                (forward-line -1)
+                (if (looking-at "^[ \t]*[.]end") ;; rule 3
                     (progn
-                      (setq cur-indent (+ (current-indentation) tab-width))
+                      (setq cur-indent (current-indentation))
                       (setq not-indented nil))
-                  (if (bobp) ;; rule 6
-                      (setq not-indented nil)))))))
+                  ;; rule 4
+                  (if (looking-at "^[ \t]*[.]\\(enum\\>\\|if\\|mac\\>\\|macro\\>\\|proc\\>\\|repeat\\>\\|scope\\>\\|struct\\>\\)")
+                      (progn
+                        (setq cur-indent (+ (current-indentation) tab-width))
+                        (setq not-indented nil))
+                    (if (bobp) ;; rule 7
+                        (setq not-indented nil))))))))
         (if cur-indent
-            (if (looking-at "^[ \t]*:.+\n") ;; rule 7
+            (if (looking-at "^[ \t]*:.+\n") ;; rule 8
                 (progn
                   (re-search-forward "^[ \t]*:" nil t)
                   (replace-match " ")
