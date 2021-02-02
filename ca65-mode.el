@@ -130,8 +130,8 @@
 ;;;###autoload
 (define-derived-mode ca65-mode prog-mode "ca65"
   "Major mode for editing ca65 assembly files."
-  (setq font-lock-defaults `(ca65-font-lock-keywords))
-  (setq indent-line-function #'ca65-indent-line)
+  (setq-local font-lock-defaults `(ca65-font-lock-keywords))
+  (setq-local indent-line-function #'ca65-indent-line)
   (modify-syntax-entry ?_ "w" ca65-mode-syntax-table)
   (modify-syntax-entry ?# "w" ca65-mode-syntax-table)
   (modify-syntax-entry ?$ "w" ca65-mode-syntax-table)
@@ -140,7 +140,7 @@
   (modify-syntax-entry ?\n ">" ca65-mode-syntax-table)
   (modify-syntax-entry ?\" "\"" ca65-mode-syntax-table)
   (modify-syntax-entry ?\' "'" ca65-mode-syntax-table)
-  (set-variable 'tab-width 2))
+  (setq-local tab-width 2))
 
 (provide 'ca65-mode)
 ;;; ca65-mode.el ends here
