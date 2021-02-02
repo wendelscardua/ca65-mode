@@ -26,23 +26,7 @@
 
 ;; Provides font-locking and indentation support to ca65 assembly files.
 
-;; Installation
-;; ============
-
-;; Place this file in your load path; then, place the following
-;; command somewhere in your initialization file:
-
-;; (require 'ca65-mode)
-
 ;;; Code:
-
-(defvar ca65-mode-hook nil)
-
-(defvar ca65-mode-map
-  (let ((map (make-keymap)))
-    (define-key map "\C-j" 'newline-and-indent)
-    map)
-  "Keymap for ca65 major mode.")
 
 ;;;###autoload
 (add-to-list 'auto-mode-alist '("\\.s\\'" . ca65-mode))
@@ -143,31 +127,20 @@
                 (indent-line-to cur-indent)))
           (indent-line-to 0))))))
 
-(defvar ca65-mode-syntax-table
-  (let ((st (make-syntax-table)))
-    (modify-syntax-entry ?_ "w" st)
-    (modify-syntax-entry ?$ "w" st)
-    (modify-syntax-entry ?% "w" st)
-    (modify-syntax-entry ?\; "<" st)
-    (modify-syntax-entry ?\n ">" st)
-    (modify-syntax-entry ?\" "\"" st)
-    (modify-syntax-entry ?\' "'" st)
-    st)
-  "Syntax table for `ca65-mode'.")
-
 ;;;###autoload
-(defun ca65-mode ()
+(define-derived-mode ca65-mode prog-mode "ca65"
   "Major mode for editing ca65 assembly files."
-  (interactive)
-  (kill-all-local-variables)
-  (set-syntax-table ca65-mode-syntax-table)
-  (use-local-map ca65-mode-map)
-  (set (make-local-variable 'font-lock-defaults) '(ca65-font-lock-keywords))
-  (set (make-local-variable 'indent-line-function) #'ca65-indent-line)
-  (setq major-mode #'ca65-mode)
-  (setq mode-name "ca65")
-  (set-variable 'tab-width 2)
-  (run-hooks 'ca65-mode-hook))
+  (setq font-lock-defaults `(ca65-font-lock-keywords))
+  (setq indent-line-function #'ca65-indent-line)
+  (modify-syntax-entry ?_ "w" ca65-mode-syntax-table)
+  (modify-syntax-entry ?# "w" ca65-mode-syntax-table)
+  (modify-syntax-entry ?$ "w" ca65-mode-syntax-table)
+  (modify-syntax-entry ?% "w" ca65-mode-syntax-table)
+  (modify-syntax-entry ?\; "<" ca65-mode-syntax-table)
+  (modify-syntax-entry ?\n ">" ca65-mode-syntax-table)
+  (modify-syntax-entry ?\" "\"" ca65-mode-syntax-table)
+  (modify-syntax-entry ?\' "'" ca65-mode-syntax-table)
+  (set-variable 'tab-width 2))
 
 (provide 'ca65-mode)
 ;;; ca65-mode.el ends here
