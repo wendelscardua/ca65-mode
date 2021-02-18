@@ -132,6 +132,8 @@
   "Major mode for editing ca65 assembly files."
   (setq-local font-lock-defaults `(ca65-font-lock-keywords))
   (setq-local indent-line-function #'ca65-indent-line)
+  (setq-local comment-start ";")
+  (setq-local comment-end ";")
   (modify-syntax-entry ?_ "w" ca65-mode-syntax-table)
   (modify-syntax-entry ?# "w" ca65-mode-syntax-table)
   (modify-syntax-entry ?$ "w" ca65-mode-syntax-table)
