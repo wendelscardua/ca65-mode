@@ -4,7 +4,7 @@
 
 ;; Author: Wendel Scardua <wendel@scardua.net>
 ;; Keywords: languages, assembly, ca65, 6502
-;; Version: 0.3.1
+;; Version: 0.3.2
 ;; Homepage: https://github.com/wendelscardua/ca65-mode
 ;; Package-Requires: ((emacs "26.1"))
 
