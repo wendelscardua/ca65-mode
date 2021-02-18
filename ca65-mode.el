@@ -139,8 +139,7 @@
   (modify-syntax-entry ?\; "<" ca65-mode-syntax-table)
   (modify-syntax-entry ?\n ">" ca65-mode-syntax-table)
   (modify-syntax-entry ?\" "\"" ca65-mode-syntax-table)
-  (modify-syntax-entry ?\' "'" ca65-mode-syntax-table)
-  (setq-local tab-width 2))
+  (modify-syntax-entry ?\' "'" ca65-mode-syntax-table))
 
 (provide 'ca65-mode)
 ;;; ca65-mode.el ends here
