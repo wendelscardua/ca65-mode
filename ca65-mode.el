@@ -45,7 +45,7 @@
    ;; constants like PPUDATA
    '("\\<[A-Z_][A-Z_]*\\>" . font-lock-constant-face)
    ;; labels
-   '("^[ \t]*@?[A-Za-z_]*:" . font-lock-type-face)
+   '("^[ \t]*@?\\w**:" . font-lock-type-face)
    ;; prefix stuff, like #42, #%00101010, #<address
    '("[#$%<>]+" . font-lock-type-face)
    ;; relative label references, like :-, :++
