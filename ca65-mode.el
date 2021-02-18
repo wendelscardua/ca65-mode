@@ -76,7 +76,7 @@
     (if (looking-at "^[ \t]*@?\\w+:") ;; rule 5
         (indent-line-to 0)
       (let ((not-indented t) cur-indent)
-        (if (looking-at "^[ \t]*[.]end") ;; rule 2
+        (if (looking-at "^[ \t]*[.]\\(else\\|end\\)") ;; rule 2
             (progn
               (save-excursion
                 (while not-indented
@@ -103,7 +103,7 @@
                       (setq cur-indent (current-indentation))
                       (setq not-indented nil))
                   ;; rule 4
-                  (if (looking-at "^[ \t]*[.]\\(enum\\>\\|if\\|mac\\>\\|macro\\>\\|proc\\>\\|repeat\\>\\|scope\\>\\|struct\\>\\)")
+                  (if (looking-at "^[ \t]*[.]\\(enum\\>\\|else\\>\\|if\\|mac\\>\\|macro\\>\\|proc\\>\\|repeat\\>\\|scope\\>\\|struct\\>\\)")
                       (progn
                         (setq cur-indent (+ (current-indentation) tab-width))
                         (setq not-indented nil))
